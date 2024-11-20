@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 7ch; /* Adjust to match the length of your text */
+    }
+}
+@keyframes typewriter2 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 23ch; /* Adjust to match the length of your text */
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Dark Mode Settings */
+:root {
+    --text-color: #e3e3e3;
+    --subheading-color: #828282;
+    --placeholder-color: #a6a6a6;
+    --primary-color: #242424;
+    --secondary-color: #383838;
+    --secondary-hover-color: #444;
+}
+
+body {
+        background: var(--primary-color);
+}
+
+.header, .typing-area {
+    color: var(--text-color);
+}
+
+.header .typing-form {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-top: 7vh;
+    padding: 1rem;
+    justify-items: center;
+}
+
+.header :where(.title, .subtitle) {
+    font-weight: 500;
+    line-height: 5rem;
+}
+
+.header .title {
+    font-size: 5rem;
+    background-clip: text;
+    background: linear-gradient(to right, #4C1E4F,#B5A886);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header .subtitle {
+    margin-top: 17vh;
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.header .title {
+    overflow: hidden;
+    white-space: nowrap;
+    /* border-right: 2px solid var(--text-color); */
+    width: 0;
+    animation: typewriter 2.5s steps(7, end) 1 forwards, blink 0.75s step-end 1;
+    animation-fill-mode: forwards;
+}
+.header .subtitle {
+    overflow: hidden;
+    white-space: nowrap;
+    /* border-right: 2px solid var(--text-color); */
+    width: 0;
+    animation: typewriter2 2s steps(23, end) 1 forwards, blink 0.75s step-end 1;
+    animation-delay: 3s; /* Start after title finishes typing */
+    animation-fill-mode: forwards;
+}
+
+.suggestion-list {
+    position: relative;
+    margin-top: 2vh;
+    justify-content: center;
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+}
+
+.suggestion-list .suggestion {
+    padding: 0.25rem;
+    cursor: pointer;
+    width: 170px;
+    flex-shrink: 0;
+    border-radius: 8rem;
+    border: 0.5px solid var(--secondary-hover-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary-color);
+}
+
+.suggestion-list .suggestion:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+.suggestion-list .suggestion .text {
+    font-weight: 300;
+    color: #7F7D7D;
+}
+
+.suggestion-list .suggestion:hover .text {
+    color: white;
+}
+
+.suggestion-list .suggestion .icon {
+    height: 42px;
+    width: 42px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    transition: background-color 0.3s ease;
+}
+
+.suggestion-list .suggestion:hover .icon{
+    background-color: black;
+}
+
+/* Individual icon color overrides */
+.suggestion-list .suggestion .icon-checklist {
+    color: #D13232;
+}
+
+.suggestion-list .suggestion .icon-notes {
+    color: #32BCD1;
+}
+
+.suggestion-list .suggestion .icon-lightbulb {
+    color: yellow;
+}
+
+.suggestion-list .suggestion .icon-redeem {
+    color: #32D162;
+}
+
+.suggestion-list .suggestion .icon-code {
+    color: #D132A7;
+}
+
+/* TYPING-AREA */
+
+.typing-area {
+    position: relative;
+    width: 60%;
+    padding: 1rem;
+    margin: auto;
+    background: var(--primary-color);
+}
+
+.typing-area :where(.typing-form, .action-buttons){
+    display: flex;
+    gap: 0.75rem;
+}
+
+.typing-area .input-wrapper {
+    height: 56px;
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.typing-area .typing-input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: var(--text-color);
+    border-radius: 6.2rem;
+    padding: 1.1rem 4rem 1.1rem 1.5rem;
+    background: var(--secondary-color);
+}
+
+.typing-area .typing-input:focus {
+    background: var(--secondary-hover-color);
+}
+
+.typing-area .typing-input::placeholder {
+    color: var(--placeholder-color);
+}
+
+/* SEND ICON */
+.typing-area .icon {
+    height: 56px;
+    width: 56px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--secondary-color);
+}
+
+.typing-area .icon:hover {
+    background: var(--secondary-hover-color)!important;
+}
+
+.typing-area .input-wrapper .icon {
+    position: absolute;
+    right: 0;
+    outline: none;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    transform: scale(0);
+    transition: transform 0.2s ease;
+}
+
+.typing-area .input-wrapper .typing-input:valid ~ .icon {
+    transform: scale(1);
+}
+
+/* DISCLAIMER TEXT */
+.typing-area .disclaimer-text {
+    position: fixed;
+    font-size: 0.85rem;
+    text-align: center;
+    bottom: 0;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--placeholder-color);
+}
