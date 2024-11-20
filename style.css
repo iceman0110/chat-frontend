@@ -83,7 +83,7 @@ body {
     white-space: nowrap;
     /* border-right: 2px solid var(--text-color); */
     width: 0;
-    animation: typewriter 2.5s steps(7, end) 1 forwards, blink 0.75s step-end 1;
+    animation: typewriter 0.75s steps(7, end) 1 forwards, blink 0.75s step-end 1;
     animation-fill-mode: forwards;
 }
 .header .subtitle {
@@ -91,8 +91,8 @@ body {
     white-space: nowrap;
     /* border-right: 2px solid var(--text-color); */
     width: 0;
-    animation: typewriter2 2s steps(23, end) 1 forwards, blink 0.75s step-end 1;
-    animation-delay: 3s; /* Start after title finishes typing */
+    animation: typewriter2 1.75s steps(23, end) 1 forwards, blink 0.75s step-end 1;
+    animation-delay: 1.2s; /* Start after title finishes typing */
     animation-fill-mode: forwards;
 }
 
