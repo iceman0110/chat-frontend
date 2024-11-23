@@ -265,12 +265,16 @@ body {
 }
 
 .chat-list .loading-indicator {
-    display: flex; /* Arrange dots horizontally */
+    display: none; /* Arrange dots horizontally */
     justify-content: flex-start; /* Center dots */
     align-items: center; /* Center vertically */
     gap: 8px; /* Space between dots */
     height: 11px;
     width: 100%;
+}
+
+.chat-list .message.loading .loading-indicator {
+    display: flex; /* Arrange dots horizontally */
 }
 
 .chat-list .loading-indicator .loading-dots {

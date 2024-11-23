@@ -3,12 +3,52 @@ const chatList = document.querySelector(".chat-list");
 
 let userMessage = null;
 
+const API_URL = `http://127.0.0.1:8002/chat`;
+
 const createMessageElement = (content, ...classes) => {
     const div = document.createElement("div");
     div.classList.add("message", ...classes);
     div.innerHTML = content;
     return div;
 }
+
+const generateAPIResponse = async (incomingMessageDiv) => {
+    const textElement = incomingMessageDiv.querySelector(".text");
+
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", // Ensure correct content type
+            },
+            body: JSON.stringify({
+                question: userMessage // Pass the user query as required by the API
+            })
+        });
+
+        // Check if response is valid before attempting to use it
+        if (!response || !response.ok) {
+            throw new Error(`HTTP error! Status: ${response?.status || "No response"}`);
+        }
+
+        const data = await response.json();
+
+        // Extract the chatbot's response from the 'response' key
+        const apiResponse = data?.response || "No response found";
+        textElement.innerText = apiResponse;
+
+        return apiResponse; // Return the response if needed elsewhere
+    } 
+    catch (error) {
+        // Handle both network errors and failed HTTP requests
+        console.error("Error generating API response:", error.message || error);
+        return "Sorry, something went wrong while processing your request.";
+    }
+    finally {
+        incomingMessageDiv.classList.remove("loading");
+    }
+};
 
 const showLoadingAnimation = () => {
     const html = `<div class="message-content">
@@ -26,6 +66,8 @@ const showLoadingAnimation = () => {
     
     const incomingMessageDiv = createMessageElement(html, "incoming", "loading");
     chatList.appendChild(incomingMessageDiv);
+
+    generateAPIResponse(incomingMessageDiv);
 }
 
 const handleOutgoingChat = () => {
