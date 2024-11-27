@@ -3,7 +3,7 @@ const chatList = document.querySelector(".chat-list");
 
 let userMessage = null;
 
-const API_URL = `http://127.0.0.1:8002/chat`;
+const API_URL = `https://377a-2001-e68-543a-c054-506d-4d0-eee0-55f6.ngrok-free.app/chat`;
 
 const createMessageElement = (content, ...classes) => {
     const div = document.createElement("div");

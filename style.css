@@ -32,7 +32,6 @@
     }
 }
 
-
 @keyframes bounce {
     0%, 20% {
         transform: translateY(0); /* Default position */
