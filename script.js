@@ -3,13 +3,26 @@ const chatList = document.querySelector(".chat-list");
 
 let userMessage = null;
 
-const API_URL = `https://377a-2001-e68-543a-c054-506d-4d0-eee0-55f6.ngrok-free.app/chat`;
+const API_URL = `https://eeb5-2001-e68-543a-c054-8065-5f4a-86a4-d541.ngrok-free.app`;
 
 const createMessageElement = (content, ...classes) => {
     const div = document.createElement("div");
     div.classList.add("message", ...classes);
     div.innerHTML = content;
     return div;
+}
+
+const showTypingEffect = (text, textElement) => {
+    const words = text.split(' ');
+    let currentWordIndex = 0;
+
+    const typingInterval = setInterval(() => {
+        textElement.innerText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex++];
+
+        if(currentWordIndex === words.length){
+            clearInterval(typingInterval);
+        }
+    }, 75);
 }
 
 const generateAPIResponse = async (incomingMessageDiv) => {
@@ -37,6 +50,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
         // Extract the chatbot's response from the 'response' key
         const apiResponse = data?.response || "No response found";
         textElement.innerText = apiResponse;
+        showTypingEffect(apiResponse, textElement);
 
         return apiResponse; // Return the response if needed elsewhere
     } 
