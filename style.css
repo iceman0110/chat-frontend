@@ -70,6 +70,16 @@
     --secondary-hover-color: #444;
 }
 
+/* Light Mode Settings */
+.light_mode {
+    --text-color: #222;
+    --subheading-color: #a0a0a0;
+    --placeholder-color: #6c6c6c;
+    --primary-color: #fff;
+    --secondary-color: #a0a0a0;
+    --secondary-hover-color: #dbe1ea;
+}
+
 body {
         background: var(--primary-color);
 }
@@ -84,10 +94,14 @@ body {
 }
 
 .header {
-    /* margin-top: 7vh; */
+    margin-top: 7vh;
     padding: 1rem;
     justify-items: center;
+}
+
+body.hide-header .header {
     display: none;
+    margin-top: 0;
 }
 
 .header :where(.title, .subtitle) {
@@ -202,10 +216,34 @@ body {
 /* CHAT LIST */
 
 .chat-list {
+    display: flex; /* Use flexbox to center the chat list */
+    flex-direction: column; /* Stack messages vertically */
+    align-items: center; /* Center messages horizontally */
+    justify-content: flex-start; /* Align messages to the top */
+    padding: 2rem 1rem 12rem; /* Adjust padding to fit layout */
+    max-height: 100vh;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    margin: auto; /* Center the chat list horizontally in its parent */
+    scrollbar-color: #999 transparent;
+}
+
+.chat-list .message {
+    width: 100%; /* Let messages take up full width */
+    max-width: 1000px; /* Limit message width for readability */
+    margin-bottom: 1rem; /* Space between messages */
+}
+/* 
+.chat-list {
     padding: 2rem 1rem 12rem;
     max-height: 100vh;
     overflow-y: auto;
 }
+
+.chat-list .message {
+    width: 100%;
+    max-width: 100%; 
+    margin-bottom: 1rem;
+}  */
 
 .chat-list .message.incoming {
     margin-top: 1.5rem;
@@ -226,12 +264,40 @@ body {
     align-self: flex-start;
 }
 
+/* Background for user (outgoing) messages */
+.chat-list .message.outgoing .text {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-self: flex-end;
+    
+}
+
+/* Background for AI (incoming) messages */
+.chat-list .message.incoming .text {
+    background-color: var(--secondary-hover-color); /* Use a variable for easy theming */
+    color: var(--text-color); /* Ensure text color contrasts with the background */
+    padding: 0.75rem 1rem; /* Add padding for better readability */
+    border-radius: 12px; /* Rounded corners for a softer look */
+    max-width: 80%; /* Prevent overflow within the message box */
+    word-wrap: break-word;
+}
+
+
 .chat-list .message.loading .avatar {
     animation: blink-avatar 1.25s infinite ease-in-out;
 }
 
 .chat-list .message .text {
     color: var(--text-color);
+}
+
+.chat-list .message .text.error {
+    color: #e55865;
 }
 
 .chat-list .message.loading .text {
@@ -252,7 +318,7 @@ body {
     visibility: hidden;
 }
 
-.chat-list .message:hover .icon {
+.chat-list .message:not(.loading):hover .icon:not(.hide) {
     visibility: visible;
 }
 
@@ -284,6 +350,17 @@ body {
     animation: bounce 1.25s infinite ease-in-out;
 }
 
+/* Outgoing Messages - User Icon on the Right */
+.chat-list .message.outgoing .message-content {
+    flex-direction: row-reverse; /* Reverse order for outgoing messages */
+}
+
+/* Specific text styling for outgoing messages */
+.chat-list .message.outgoing .text {
+    text-align: right; /* Align text to the right */
+}
+
+
 .chat-list .loading-indicator .loading-dots:nth-child(1) {
     animation-delay: 0.1s;
 }
@@ -296,18 +373,18 @@ body {
 
 /* TYPING-AREA */
 
+
 .typing-area {
-    position: absolute;
+    position: fixed; /* Ensure it stays at the bottom */
     bottom: 0;
-    width: 100%;
+    width: 100%; /* Full width */
+    max-width: 1000px; /* Limit width for alignment */
     padding: 1rem;
     margin: auto;
     background: var(--primary-color);
-}
-
-.typing-area :where(.typing-form, .action-buttons){
-    display: flex;
-    gap: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
 }
 
 .typing-area .input-wrapper {
@@ -329,6 +406,40 @@ body {
     background: var(--secondary-color);
 }
 
+/* 
+.typing-area {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    margin: auto;
+    background: var(--primary-color);
+} */
+
+.typing-area :where(.typing-form, .action-buttons){
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* .typing-area .input-wrapper {
+    height: 56px;
+    width: 100%;
+    display: flex;
+    position: relative;
+} */
+/* 
+.typing-area .typing-input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: var(--text-color);
+    border-radius: 6.2rem;
+    padding: 1.1rem 4rem 1.1rem 1.5rem;
+    background: var(--secondary-color);
+} */
+
 .typing-area .typing-input:focus {
     background: var(--secondary-hover-color);
 }
@@ -338,6 +449,7 @@ body {
 }
 
 /* SEND ICON */
+
 .typing-area .icon {
     height: 56px;
     width: 56px;
@@ -348,6 +460,17 @@ body {
     border-radius: 50%;
     background: var(--secondary-color);
 }
+
+/* .typing-area .icon {
+    height: 56px;
+    width: 56px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--secondary-color);
+} */
 
 .typing-area .icon:hover {
     background: var(--secondary-hover-color)!important;
@@ -386,4 +509,42 @@ body {
     margin-top: 1rem;
     /* align-items: center; */
     color: var(--placeholder-color);
+}
+
+@media (max-width: 768px) {
+    .header :is(.title .subtitle){
+        font-size: 2rem;
+        line-height: 2.6rem;
+    }
+
+    .header .subtitle {
+        font-size: 1.7rem;
+    }
+
+    .chat-list .message .avatar {
+        width: 37px;
+        height: 37px;
+    }
+
+    .typing-area :where(.typing-form, .actions-button) {
+        gap: 0.4rem;
+    }
+
+    .typing-form .input-wrapper {
+        height: 50px;
+    }
+
+    .typing-form .typing-input {
+        padding: 1.1rem 3.5rem 1.1rem 1.2rem;
+    }
+
+    .typing-area .icon{
+        height: 50px;
+        width: 50px;
+    }
+
+    .typing-area .disclaimer-text {
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+    }
 }
