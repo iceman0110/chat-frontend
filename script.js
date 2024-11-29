@@ -8,7 +8,7 @@ let userMessage = null;
 let isResponseGenerating = false;
 
 // Put own API key over here
-const API_URL = `https://eeb5-2001-e68-543a-c054-8065-5f4a-86a4-d541.ngrok-free.app/chat`;
+const API_URL = `https://6196-2001-e68-543a-c054-8065-5f4a-86a4-d541.ngrok-free.app/chat`;
 
 //Store theme settings and chat in local storage
 const loadLocalstorageData = () => {
